@@ -10,9 +10,18 @@ module Simpler
     end
 
     def render(binding)
-      template = File.read(template_path)
+      type = @env['simpler.ui_type']
 
-      ERB.new(template).result(binding)
+      if type == :plain
+        @env['simpler.ui_payload']
+      elsif type == :json
+        @env['simpler.ui_payload'].to_json
+      else
+        template = File.read(template_path)
+  
+        ERB.new(template).result(binding)
+      end
+
     end
 
     private

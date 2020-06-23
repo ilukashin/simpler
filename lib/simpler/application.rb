@@ -1,8 +1,11 @@
 require 'yaml'
 require 'singleton'
 require 'sequel'
+require 'json'
 require_relative 'router'
 require_relative 'controller'
+
+require 'byebug'
 
 module Simpler
   class Application

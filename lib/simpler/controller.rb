@@ -47,7 +47,14 @@ module Simpler
     end
 
     def render(template)
-      @request.env['simpler.template'] = template
+      if template.is_a?(Hash)
+        type = template.keys.first
+        @request.env['simpler.ui_type'] = type
+        @request.env['simpler.ui_payload'] = template[type]
+      else
+        puts template
+        @request.env['simpler.template'] = template
+      end
     end
 
   end
