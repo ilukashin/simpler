@@ -13,6 +13,7 @@ class TestsController < Simpler::Controller
   end
 
   def json
+    status 201
     render json: "Simple json text reponse"
   end
 
