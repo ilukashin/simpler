@@ -60,5 +60,11 @@ module Simpler
       @response.status = code
     end
 
+    # access for Content-Type with hash-syntax like
+    # headers['Content-Type']
+    def headers
+      @response
+    end
+
   end
 end

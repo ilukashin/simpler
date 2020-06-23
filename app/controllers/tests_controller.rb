@@ -9,6 +9,7 @@ class TestsController < Simpler::Controller
   end
 
   def plain
+    headers['Content-Type'] = 'text/plain'
     render plain: "Plain text response"
   end
 
