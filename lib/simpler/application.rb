@@ -34,6 +34,7 @@ module Simpler
 
       return default_not_found if route.nil?
 
+      route.extract_params(env)
       controller = route.controller.new(env)
       action = route.action
 

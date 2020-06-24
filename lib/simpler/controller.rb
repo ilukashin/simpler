@@ -9,6 +9,8 @@ module Simpler
       @name = extract_name
       @request = Rack::Request.new(env)
       @response = Rack::Response.new
+
+      params.merge!(env['simpler.route_params'])
     end
 
     def make_response(action)

@@ -4,4 +4,6 @@ Simpler.application.routes do
 
   get '/plain', 'tests#plain'
   get '/json', 'tests#json'
+
+  get '/tests/:id', 'tests#show'
 end

@@ -18,4 +18,8 @@ class TestsController < Simpler::Controller
     render json: "Simple json text reponse"
   end
 
+  def show
+    render plain: "Got request with params: #{params.inspect}"
+  end
+
 end
