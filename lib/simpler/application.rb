@@ -4,6 +4,7 @@ require 'sequel'
 require 'json'
 require_relative 'router'
 require_relative 'controller'
+require_relative 'logger'
 
 require 'byebug'
 
@@ -17,6 +18,7 @@ module Simpler
     def initialize
       @router = Router.new
       @db = nil
+      @logger = Logger.new
     end
 
     def bootstrap!
@@ -38,7 +40,10 @@ module Simpler
       controller = route.controller.new(env)
       action = route.action
 
-      make_response(controller, action)
+      response = make_response(controller, action)
+      @logger.log(env)
+
+      response
     end
 
     private
