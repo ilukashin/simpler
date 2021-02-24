@@ -1,8 +1,12 @@
 require 'yaml'
 require 'singleton'
 require 'sequel'
+require 'json'
 require_relative 'router'
 require_relative 'controller'
+require_relative 'logger'
+
+require 'byebug'
 
 module Simpler
   class Application
@@ -14,6 +18,7 @@ module Simpler
     def initialize
       @router = Router.new
       @db = nil
+      @logger = Logger.new
     end
 
     def bootstrap!
@@ -28,10 +33,17 @@ module Simpler
 
     def call(env)
       route = @router.route_for(env)
+
+      return default_not_found if route.nil?
+
+      route.extract_params(env)
       controller = route.controller.new(env)
       action = route.action
 
-      make_response(controller, action)
+      response = make_response(controller, action)
+      @logger.log(env)
+
+      response
     end
 
     private
@@ -52,6 +64,10 @@ module Simpler
 
     def make_response(controller, action)
       controller.make_response(action)
+    end
+
+    def default_not_found
+      [404, { 'Content-Type' => 'text/plain' }, ['404 not found']]
     end
 
   end

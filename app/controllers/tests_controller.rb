@@ -8,4 +8,18 @@ class TestsController < Simpler::Controller
 
   end
 
+  def plain
+    headers['Content-Type'] = 'text/plain'
+    render plain: "Plain text response"
+  end
+
+  def json
+    status 201
+    render json: "Simple json text reponse"
+  end
+
+  def show
+    render plain: "Got request with params: #{params.inspect}"
+  end
+
 end
